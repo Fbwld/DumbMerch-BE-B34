@@ -33,10 +33,10 @@ router.get('/category/:id', getCategory)
 router.patch('/category/:id', auth,updateCategory)
 router.delete('/category/:id', deleteCategory)
 
-router.patch('/profile/:id', updateProfile)
+router.patch('/profile', auth, updateProfile)
 router.delete('/profile/:id', deleteProfile)
-router.get('/profiles', getProfiles)
-router.get('/profile/:id', getProfile)
+router.get('/profiles',  getProfiles)
+router.get('/profile', auth, getProfile)
 router.post('/profile', addProfile)
 
 router.get('/transactions', auth, getTransactions)

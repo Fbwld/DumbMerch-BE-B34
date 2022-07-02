@@ -2,13 +2,12 @@ const {profile,user}= require(`../../models`)
 
 exports.updateProfile = async(req, res) => {
     try {
-        const id = req.params.id
-        const newData = JSON.parse(req.body.body)
-        console.log(newData,"aku data")
-        console.log(id,"aku id")
+        const id = req.user.id
+        const newData = req.body
+        console.log(req.body)
         await profile.update(newData, {
             where: {
-                id
+                idUser:id
             }
         })
 
@@ -80,23 +79,15 @@ exports.getProfiles = async(req,res)=>{
 exports.getProfile = async(req,res)=>{
     
     try {
-        const id = req.params.id
+        const id = req.user.id
+        console.log(id)
         let data = await profile.findOne({
-            include:[
-                {
-                    model:user,
-                    as:"user",
-                    attributes:{
-                        exclude:["createdAt","updatedAt","password","name","email","status"],
-                    },
-                },
-            ],
+            where : {
+                idUser:id
+            },
             attributes:{
                 exclude:['idUser','createdAt','updatedAt']
             },
-            where : {
-                idUser:id
-            }
         })
         res.send({
             status:"success",
