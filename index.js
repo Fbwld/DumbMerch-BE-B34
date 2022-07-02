@@ -32,4 +32,10 @@ app.use(cors())
 // Add endpoint grouping and router
 app.use('/api/v1/', router)
 
+app.get('/', function (req, res){
+    res.send({
+        message: 'Hello World'
+    });
+});
+
 server.listen(port, () => console.log(`Listening on port ${port}!`))
