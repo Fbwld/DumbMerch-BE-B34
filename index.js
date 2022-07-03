@@ -9,11 +9,12 @@ const {Server} = require('socket.io')
 const router = require('./src/routes')
 
 const app = express()
+app.use(cors())
 
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL  // define client origin if both client and server have different origin
+        origin: process.env.CLIENT_URL || 'http://localhost:3000' // define client origin if both client and server have different origin
     }
     })
 
@@ -27,7 +28,6 @@ require("dotenv").config()
 
 app.use(express.json())
 
-app.use(cors())
 
 // Add endpoint grouping and router
 app.use('/api/v1/', router)
