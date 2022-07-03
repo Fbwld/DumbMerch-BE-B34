@@ -13,13 +13,13 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000' // define client origin if both client and server have different origin
+        origin: process.env.CLIENT_URL  // define client origin if both client and server have different origin
     }
     })
 
 require('./src/socket')(io)
 
-const port = 5000
+const port = process.env.PORT || 5000
 
 app.use('/uploads', express.static('uploads'))
 
